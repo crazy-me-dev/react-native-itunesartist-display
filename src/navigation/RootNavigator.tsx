@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { ColorSchemeName } from "react-native";
 import { RootStackPramsList } from "./Types";
 import { createStackNavigator } from '@react-navigation/stack';
-import ArtistListScreen from "../screens/ArtistListScreen";
+import ArtistListScreen from "../screens/ArtistList/ArtistListScreen";
 
 type RootNavigatorProps = {
   colorScheme: ColorSchemeName;

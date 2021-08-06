@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator } from "react-native";
-import { FlatList, TextInput } from "react-native-gesture-handler";
+import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator, FlatList, TextInput } from "react-native";
 import ArtistListCell from "./artistListCell";
 import { useDispatch, useSelector } from "react-redux";
 import { searchArtists as searchArtistAction} from '../../redux/actions/artistActions';

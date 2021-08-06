@@ -12,7 +12,9 @@ const ArtistListScreen = () => {
   const [isButtonEnabled, setButtonEnabled] = useState(false);
   const [keyword, setKeyword] = useState("");
 
-  const { loading, error }  = useSelector(state => state.searchArtists);
+  const searchArtists  = useSelector(state => state.searchArtists);
+  const { loading , error} = searchArtists;
+
   const artists = useSelector(searchArtistsSelector).artists;
 
   const handleButtonClick = () => dispatch(searchArtistAction(keyword))
@@ -60,7 +62,7 @@ const ArtistListScreen = () => {
       </View>
       
       {loading ?
-        <View>
+        <View testID="loadingView">
           <ActivityIndicator 
             style={styles.spinnerStyle}/>
           <Text style={styles.loadingTextStyle}>

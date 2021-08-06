@@ -11,9 +11,6 @@ import { render, waitFor } from "@testing-library/react-native";
 
 it('App renders correctly', async () => {
   await waitFor(() => {
-
-    
-
     const emptyState = render(<App />);
     jest.useFakeTimers();
     expect(emptyState).not.toBeNull();

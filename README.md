@@ -8,6 +8,7 @@ iTunes Artist listing react native test. Android and iOS
 - React Native version: 0.63 (https://reactnative.dev/versions) 
 
 ## Screenshot
+<img src="screenshots/1.png" width="300"/> <img src="screenshots/2.png" width="300"/>
 
 MacOS for iOS simulator
 VM is fine in case you are on Linux or Windows
@@ -32,6 +33,9 @@ Run on iOS emulator \
 
 Run on Android emulator \
 `npx reac-native run-android`
+
+Test \
+`npm test`
 
 iOS emulator: https://docs.expo.io/workflow/ios-simulator/ \
 Android emulator: https://docs.expo.io/workflow/android-studio-emulator/

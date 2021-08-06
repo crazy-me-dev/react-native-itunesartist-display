@@ -1,13 +1,12 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 
 class Api {
 
   private baseUrl: string = "https://itunes.apple.com/"
-  private client: AxiosInstance = axios.create();
 
   get artist() {
     return {
-      list: (terms: string) => this.client.get(`${this.baseUrl}search?terms=${terms}`)
+      search: (term: string) => axios.get(`${this.baseUrl}search?term=${term}`)
     }
   }
 };

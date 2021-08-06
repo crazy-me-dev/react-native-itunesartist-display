@@ -1,11 +1,10 @@
 import axios from "axios"
+import Api from "../../services/Api";
 import { 
         FETCH_ARTISTS_FAIL, 
         FETCH_ARTISTS_REQUEST, 
         FETCH_ARTISTS_SUCCESS
 } from "../constants/constants";
-
-const artistsEndpoint = 'https://itunes.apple.com/';
 
 export const searchArtists = (term) => async(dispatch) => {
     try {
@@ -13,7 +12,7 @@ export const searchArtists = (term) => async(dispatch) => {
             type: FETCH_ARTISTS_REQUEST
         });
         
-        const response = await axios.get(`${artistsEndpoint}search?term=${term}`);
+        const response = await Api.artist.search(term);
         
         dispatch({
             type: FETCH_ARTISTS_SUCCESS,

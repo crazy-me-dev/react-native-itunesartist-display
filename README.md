@@ -1,14 +1,24 @@
 # Test - iTunes Artist listing test React-native App
 iTunes Artist listing react native test. Android and iOS
 
+## Screenshot
+<img src="screenshots/1.png" width="300"/> <img src="screenshots/2.png" width="300"/>
+
+## Technologies
+- React-Native
+- Redux
+- Reducers
+- Actions
+- Selector
+- Axios for API
+- Jest for Testing
+- react-navigation
+
 ## Development Tools
 - Visual Studio Code (IDE)
 - Xcode (iOS SDK required)
 - Android Studio (Android SDK required)
 - React Native version: 0.63 (https://reactnative.dev/versions) 
-
-## Screenshot
-<img src="screenshots/1.png" width="300"/> <img src="screenshots/2.png" width="300"/>
 
 MacOS for iOS simulator
 VM is fine in case you are on Linux or Windows

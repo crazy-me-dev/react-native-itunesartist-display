@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React, {FC} from "react";
 import { ColorSchemeName } from "react-native";
-import RootNavigator from "./RootNavigator";
+import RootNavigator from "./rootNavigator";
 
 type NavigationProps = {
   colorScheme: ColorSchemeName;

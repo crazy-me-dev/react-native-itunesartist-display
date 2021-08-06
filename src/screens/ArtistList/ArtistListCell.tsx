@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Text, Image, StyleSheet, View } from "react-native";
-import { Artist } from "../../models/Artist";
+import { Artist } from "../../models/artist";
 import Moment from 'moment';
 
 type Props = {
@@ -12,21 +12,22 @@ const ArtistListCell : FC<Props> = ({ artist }) => {
     <View style={styles.container}>
       <Image source={{ uri:  artist.artworkUrl60 }} style={styles.coverImage} />
       <View style={styles.namePanel}>
-        <Text style={styles.trackName}>
+        <Text style={styles.trackName} numberOfLines={2}>
           {artist.trackName}
         </Text>
-        <Text style={styles.artistName}>
+        <Text style={styles.artistName} numberOfLines={1}>
           {artist.artistName} · {artist.primaryGenreName}
         </Text>
         <Text style={styles.tracksCountText}>
-          {artist.trackCount} songs
+          {artist.trackCount ? `${artist.trackCount}` : "No"} track{artist.trackCount > 1 ? "s" : ""}
         </Text>
         <Text style={styles.releasedDateText}>
           Released {Moment(artist.releaseDate).format('MMM d, yyyy')}
         </Text>
       </View>
       <Text style={styles.priceText}>
-        ${artist.trackPrice}
+        {artist.trackPrice > 0 ? `$${artist.trackPrice}` : 'Free'}
+        
       </Text>
     </View>
   );
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   artistName: {
-    fontSize: 14,
+    fontSize: 12,
+    fontWeight: 'bold',
     color: 'gray'
   },
   tracksCountText: {

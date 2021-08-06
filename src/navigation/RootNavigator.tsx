@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { ColorSchemeName } from "react-native";
-import { RootStackPramsList } from "./Types";
+import { RootStackPramsList } from "./types";
 import { createStackNavigator } from '@react-navigation/stack';
-import ArtistListScreen from "../screens/ArtistList/ArtistListScreen";
+import ArtistListScreen from "../screens/ArtistList/artistListScreen";
 
 type RootNavigatorProps = {
   colorScheme: ColorSchemeName;

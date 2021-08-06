@@ -1,5 +1,7 @@
 export type Artist = {
+  trackId: number,
   artistId: number,
+  collectionId: number,
   trackName: string,
   artistName: string,
   primaryGenreName: string,

@@ -12,17 +12,21 @@
    useColorScheme,
  } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 import Navigation from './src/navigation';
+import store from './src/redux/store';
 
  const App = () => {
 
    const colorScheme = useColorScheme();
 
    return (
-    <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" />
-      <Navigation colorScheme={colorScheme}/>
-    </SafeAreaProvider>
+     <Provider store={store}>
+       <SafeAreaProvider>
+        <StatusBar barStyle="dark-content" />
+        <Navigation colorScheme={colorScheme}/>
+      </SafeAreaProvider>
+     </Provider>
    );
  };
 

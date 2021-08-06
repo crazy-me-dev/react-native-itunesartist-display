@@ -1,38 +1,66 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
-import ArtistListCell from "./ArtistListCell";
+import { FlatList, TextInput } from "react-native-gesture-handler";
+import ArtistListCell from "./artistListCell";
+import { useDispatch, useSelector } from "react-redux";
+import { searchArtists as searchArtistAction} from '../../redux/actions/artistActions';
+import { searchArtists as searchArtistsSelector } from "../../redux/selectors";
 
 const ArtistListScreen = () => {
 
-  const [isLoading, setLoading] = useState(false);
-  
-  const artists = [{
-    artistId: 1010,
-    trackName: "Test",
-    artistName: "Artist NAme",
-    primaryGenreName: "Genre",
-    trackCount: 10,
-    artworkUrl60: "https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/09/29/4e/09294e74-c916-228e-6ca7-73cc695c5d94/source/60x60bb.jpg",
-    releaseDate: "2010-01T12:00:00Z",
-    trackPrice: 1.29
-  }]
+  const dispatch = useDispatch();
 
-  const handleButtonClick = () => {
-    // setLoading(true);
-  };
+  const [isButtonEnabled, setButtonEnabled] = useState(false);
+  const [keyword, setKeyword] = useState("");
+
+  const { loading, error }  = useSelector(state => state.searchArtists);
+  const artists = useSelector(searchArtistsSelector).artists;
+
+  const handleButtonClick = () => dispatch(searchArtistAction(keyword))
+
+  const handleKeywordTextChange = (text: string) => {
+    setKeyword(text);
+    if (text) {
+      setButtonEnabled(true);
+    } else {
+      setButtonEnabled(false);
+    }
+  }
+
+  const contentEmptyView = () => (
+    <View style={styles.emptyContentView}>
+      <Text style={styles.emptyContentText}>
+        Please enter a keyword and tap Show Record button.
+      </Text>
+    </View>
+  )
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity 
-        style={styles.button}
-        onPress={handleButtonClick}>
-        <Text style={styles.buttonText}>
-          Show Records
-        </Text>
-      </TouchableOpacity>
-
-      {isLoading ?
+      <View style={styles.searchBar}>
+        <View style={styles.textInput}>
+          <TextInput 
+            style={styles.textInput}
+            placeholder="Enter keywords..."
+            placeholderTextColor="gray"
+            onChangeText={handleKeywordTextChange}
+            />
+          <View style={styles.textInputIndicator} />
+        </View>
+        <TouchableOpacity 
+          disabled={!isButtonEnabled}
+          style={{
+            ...styles.button,
+            backgroundColor: isButtonEnabled ? "blue" : "rgba(0,0,0,0.4)",
+          }}
+          onPress={handleButtonClick}>
+          <Text style={styles.buttonText}>
+            Show Records
+          </Text>
+        </TouchableOpacity>
+      </View>
+      
+      {loading ?
         <View>
           <ActivityIndicator 
             style={styles.spinnerStyle}/>
@@ -41,12 +69,23 @@ const ArtistListScreen = () => {
           </Text>
         </View>
       :
-      <FlatList 
-        data={artists}
-        style={{width: '100%'}}
-        renderItem={({item}) => <ArtistListCell artist={item}/>}
-        keyExtractor={item => item.artistId}
-      />
+      <>
+      {error ?
+        <View>
+          <Text style={styles.loadingTextStyle}>
+            {error}
+          </Text>
+        </View>
+      :
+        <FlatList 
+            data={artists}
+            style={styles.listStyle}
+            renderItem={({item}) => <ArtistListCell artist={item}/>}
+            keyExtractor={item => `${item.artistId}${item.collectionId}${item.trackId}`}
+            ListEmptyComponent={contentEmptyView}
+          />
+      }
+      </>
       }
     </View>
   );
@@ -60,14 +99,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 15
   },
+  searchBar: {
+    width: '100%',
+    flexDirection: 'row',
+    paddingLeft: 15,
+    paddingRight: 15
+  },
+  textInput: {
+    flex: 1
+  },
+  textInputIndicator: {
+    height: 1,
+    backgroundColor: 'rgba(0,0,0,0.2)'
+  },
   button: {
-    backgroundColor: 'blue',
     borderRadius: 3,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
+    marginLeft: 10
   },
   buttonText: {
     color: 'white'
@@ -77,5 +129,17 @@ const styles = StyleSheet.create({
   },
   loadingTextStyle: {
     marginTop: 15
+  },
+  listStyle: {
+    width: '100%', 
+    marginTop: 10
+  },
+  emptyContentView: {
+    marginTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30
+  },
+  emptyContentText: {
+    color: 'gray'
   }
 })
